@@ -22,7 +22,7 @@ class Password(db.Model):
         else:
             self.email = "www.weslei@gmail.com"
         self.password = password
-        self.date = datetime.utcnow()
+        self.date = datetime.now()
 
     def __repr__(self):
         return '<DB Site %r>' % self.site
