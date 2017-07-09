@@ -1,0 +1,48 @@
+<!DOCTYPE html> 
+
+{% extends "layout.html" %} 
+
+{% block title %} Atualizar {% endblock title %} 
+
+{% block content %}
+
+<div class="container">
+        <form method="post">
+            {{form.csrf_token}}
+                <legend>Atualizar dados:</legend>
+                {{form.site.label}}
+                {{form.site(class="form-control", value=query.site)}}
+                {% if form.errors.site %} 
+                    {% for erro in form.errors.site %}
+                        <span class="label label-warning"> {{erro}}</span><br> 
+                    {% endfor %}
+                {% endif %}
+                {{form.username.label}}
+                {{form.username(class="form-control", value=query.username)}}
+                {{form.email.label}}
+                {{form.email(class="form-control", value=query.email)}}
+                {{form.password.label}}
+                {{form.password(class="form-control", value=query.password)}}
+                {% if form.errors.password %} 
+                    {% for erro in form.errors.password %}
+                        <span class="label label-warning"> {{erro}}</span><br>
+                    {% endfor %} 
+                {% endif %}
+                <br>{{form.submit(class="btn btn-success", value="Atualizar")}}
+                {% for message in get_flashed_messages() %} 
+                    {% if message == "Seus dados foram atualizados" %} 
+                        <div class="alert alert-success">
+                        <strong>Success!</strong> {{message}}.  
+                        </div> 
+                    {% else %} 
+                        <div class="alert alert-dismissible alert-danger">
+                        <strong>ERROR! </strong> {{message}}.  
+                        </div> 
+                    {% endif %}                    
+                {% endfor %}
+        </form>
+    </div>
+  
+
+
+{% endblock content %}
