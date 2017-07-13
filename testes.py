@@ -24,7 +24,7 @@ class testApp(TestCase):
 
     def test_bootstrap_css(self):
         self.assertIn('bootstrap.min.css', self.response_str)
-        
+
     def test_content(self):
         self.assertIn('<title>  Home  </title>', str(self.response_str))
         self.assertIn('<legend>Cadastrar Site:</legend>',

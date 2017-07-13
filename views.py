@@ -25,7 +25,6 @@ def select():
     if request.method == "POST":
         search = (request.form.get("search"))
         views = model.query.filter(model.site.endswith(search)).all()
-        print(search, views)
     return render_template('select.html', views=views)
 
 
