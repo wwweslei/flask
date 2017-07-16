@@ -1,4 +1,4 @@
-from flask import render_template, flash, url_for, request
+from flask import render_template, flash, request
 from app import app, db
 from forms import FormPassword
 from models import Password

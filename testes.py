@@ -1,10 +1,12 @@
 from unittest import TestCase, main
-from models import Password
 from app import app, db
+from models import Password
 from views import home
+from cripto import encrypt_text, decrypt_text
+from os import environ
 
 
-class testApp(TestCase):
+class TestApp(TestCase):
     def setUp(self):
         test_app = app.test_client()
         self.response_home = test_app.get("/")
@@ -39,6 +41,13 @@ class testApp(TestCase):
         test = self.banco.query.filter_by(site='site_test').first()
         db.session.delete(test)
         self.assertEqual(db.session.commit(), None)
+
+    def test_encript_and_decript(self):
+        criptografado = encrypt_text("teste de criptografia")
+        self.assertEqual(decrypt_text(criptografado), "teste de criptografia")
+
+    def test_environment_variable(self):
+        self.assertTrue(environ.get("SECRET_KEY"))
 
 if __name__ == '__main__':
     main()
