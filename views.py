@@ -2,6 +2,7 @@ from flask import render_template, flash, url_for, request
 from app import app, db
 from forms import FormPassword
 from models import Password
+from cripto import encrypt_text, decrypt_text
 
 model = Password
 
@@ -11,7 +12,7 @@ def home():
     form = FormPassword()
     if form.validate_on_submit():
         db.session.add(model(form.site.data, form.username.data,
-                             form.email.data, form.password.data))
+                             form.email.data, encrypt_text(form.password.data)))
         try:
             db.session.commit()
             flash("Seus dados foram salvos")
@@ -25,6 +26,8 @@ def select():
     if request.method == "POST":
         search = (request.form.get("search"))
         views = model.query.filter(model.site.endswith(search)).all()
+        for view in views:
+            view.password = decrypt_text(view.password)
     return render_template('select.html', views=views)
 
 
@@ -36,7 +39,7 @@ def update(id):
         query.site = form.site.data
         query.username = form.username.data
         query.email = form.email.data
-        query.password = form.password.data
+        query.password = encrypt_text(form.password.data)
         try:
             db.session.commit()
             flash("Seus dados foram atualizados")
