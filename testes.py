@@ -10,8 +10,8 @@ class TestApp(TestCase):
     def setUp(self):
         test_app = app.test_client()
         self.response_home = test_app.get("/")
-        self.response_update = test_app.get("/update/10")
-        self.response_select = test_app.get("/select/10")
+        self.response_update = test_app.get("/update/2")
+        self.response_select = test_app.get("/select/2")
         self.response_str = self.response_home.data.decode('utf-8')
         self.banco = Password
 
