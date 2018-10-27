@@ -1,0 +1,46 @@
+<!DOCTYPE html> 
+
+{% extends "layout.html" %} 
+
+{% block title %} Home {% endblock title %} 
+
+{% block content %}
+
+  <div class="container">
+        <form method="post">
+            {{form.csrf_token}}
+                <legend>Cadastrar Site:</legend>
+                {{form.site.label}}
+                {{form.site(placeholder="Site", class="form-control")}}
+                {% if form.errors.site %} 
+                    {% for erro in form.errors.site %}
+                        <span class="label label-warning"> {{erro}}</span><br> 
+                    {% endfor %}
+                {% endif %}
+                {{form.username.label}}
+                {{form.username(placeholder="wwweslei", class="form-control")}}
+                {{form.email.label}}
+                {{form.email(placeholder="www.weslei@gmai.com", class="form-control")}}
+                {{form.password.label}}
+                {{form.password(placeholder="Password", class="form-control")}}
+                {% if form.errors.password %} 
+                    {% for erro in form.errors.password %}
+                        <span class="label label-warning"> {{erro}}</span><br>
+                    {% endfor %} 
+                {% endif %}
+                <br>{{form.submit(class="btn btn-success")}}
+                {% for message in get_flashed_messages() %} 
+                    {% if message == "Seus dados foram salvos" %} 
+                        <div class="alert alert-success">
+                        <strong>Success!</strong> {{message}}.  
+                        </div> 
+                    {% else %} 
+                        <div class="alert alert-dismissible alert-danger">
+                        <strong>ERROR! </strong> {{message}}.  
+                        </div> 
+                    {% endif %}                    
+                {% endfor %}
+        </form>
+    </div>
+
+{% endblock content %}
