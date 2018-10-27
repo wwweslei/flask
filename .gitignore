@@ -1,0 +1,7 @@
+.idea
+.env_flask
+.vscode
+*.pyc
+storage.db
+
+.iiiii
